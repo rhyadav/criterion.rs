@@ -32,6 +32,15 @@ impl AsyncExecutor for FuturesExecutor {
     }
 }
 
+#[cfg(feature = "async_glommio")]
+pub struct LocalExecutor;
+#[cfg(feature = "async_glommio")]
+impl AsyncExecutor for LocalExecutor {
+    fn block_on<T>(&self, future: impl Future<Output = T>) -> T {
+        self.run(future)
+    }
+}
+
 /// Runs futures on the 'soml' crate's global executor
 #[cfg(feature = "async_smol")]
 pub struct SmolExecutor;
@@ -41,6 +50,8 @@ impl AsyncExecutor for SmolExecutor {
         smol::block_on(future)
     }
 }
+
+
 
 #[cfg(feature = "async_tokio")]
 impl AsyncExecutor for tokio::runtime::Runtime {

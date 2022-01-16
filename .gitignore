@@ -1,5 +1,6 @@
 .criterion
 Cargo.lock
 target
+.idea
 
 **/.*.sw*

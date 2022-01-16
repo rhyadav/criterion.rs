@@ -38,6 +38,7 @@ futures        = { version = "0.3", default_features = false, optional = true }
 smol           = { version = "1.2", default-features = false, optional = true }
 tokio          = { version = "1.0", default-features = false, features = ["rt"], optional = true }
 async-std      = { version = "1.9", optional = true }
+glommio        = { version = "0.6.0", default-features = false, optional = true }
 
 [dependencies.plotters]
 version          = "^0.3.1"
@@ -55,7 +56,7 @@ futures    = { version = "0.3", default_features = false, features = ["executor"
 maintenance = { status = "passively-maintained" }
 
 [features]
-stable  = ["async_futures", "async_smol", "async_tokio", "async_std"]
+stable  = ["async_futures", "async_smol", "async_tokio", "async_std", "async_glommio"]
 default = ["cargo_bench_support"]
 
 # Enable use of the nightly-only test::black_box function to discourage compiler optimizations.
@@ -70,6 +71,7 @@ async_futures = ["futures/executor", "async"]
 async_smol    = ["smol", "async"]
 async_tokio   = ["tokio", "async"]
 async_std     = ["async-std", "async"]
+async_glommio = ["glommio", "async"]
 
 # This feature _currently_ does nothing except disable a warning message, but in 0.4.0 it will be
 # required in order to have Criterion.rs generate its own plots (as opposed to using cargo-criterion)
@@ -96,4 +98,4 @@ bench = false
 
 # Enable all of the async runtimes for the docs.rs output
 [package.metadata.docs.rs]
-features = ["async_futures", "async_smol", "async_std", "async_tokio"]
+features = ["async_futures", "async_smol", "async_std", "async_tokio", "glommio"]
